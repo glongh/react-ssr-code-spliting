@@ -2,7 +2,8 @@ import express from 'express';
 
 import serverRenderer from './middleware/renderer';
 
-const PORT = 3000;
+
+const PORT = 8080;
 const path = require('path');
 
 // initialize the application and create the routes
@@ -17,6 +18,10 @@ router.use(express.static(
     path.resolve(__dirname, '..', 'build'),
     { maxAge: '30d' },
 ));
+
+// anything else should act as our index page
+// react-router will take care of everything
+router.use('*', serverRenderer);
 
 // tell the app to use the above rules
 app.use(router);
